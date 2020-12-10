@@ -1,6 +1,6 @@
 import menu3 as menu
 import image
-
+#valami
 currentImg = None
 
 def main(option, currentImg):
