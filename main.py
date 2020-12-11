@@ -1,6 +1,5 @@
 import menu3 as menu
 import image
-#valami
 currentImg = None
 
 def main(option, currentImg):
@@ -19,25 +18,24 @@ def main(option, currentImg):
         elif option == 3:
             if currentImg:
                sth = menu.ScreenThree()
-               currentImg = sth.Start(currentImg)
+               currentImg = sth.Start(currentImg, image.rgbToHvs, image.rgbToLab, image.rgbToGrey)
             else:
                 menu.ImageNotLoaded()
         elif option == 4:
             sf = menu.ScreenFour()
             sf.Start(currentImg, image.forgatas90FokkalBalra, image.forgatas90FokkalJobbra, image.forgatas180FokkalBalra)
         elif option == 5:
-            pass
+            scf = menu.ScreenFive()
+            scf.Start(currentImg, image.blur)
         elif option == 6:
-            pass
+            ss = menu.ScreenSix()
+            ss.Start(currentImg, image.elekKeresese)
         elif option == 7:
             image.kepMegjelelitese(currentImg)
 
         elif option == 8:
-            image.kepMentese(currentImg, "valamiúj")
-
-
-
-
+            se = menu.ScreenEight()
+            se.Start(currentImg, image.kepMentese)
 
         menu.PrintMenu(mc.options)
         option = menu.ValidateInput(mc.MinChoice, mc.MaxChoice)

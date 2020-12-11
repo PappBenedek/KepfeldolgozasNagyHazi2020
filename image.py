@@ -90,7 +90,38 @@ def adottMeretKepAranyokMegtartasaval(img,st):
     img.mtrx = resized
     img.width, img.height,_ = resized.shape
     return img
-            
+
+@Log
+def blur(img, meret):
+    im = np.array(img.mtrx).astype(np.uint8)
+    kernel = (meret,meret)
+    img.mtrx = cv2.blur(im,kernel)
+    return img
+
+@Log
+def rgbToHvs(img):
+    im = np.array(img.mtrx).astype(np.uint8)
+    img.mtrx = cv2.cvtColor(im, cv2.COLOR_BGR2HSV)
+    return img
+
+@Log
+def rgbToLab(img):
+    im = np.array(img.mtrx).astype(np.uint8)
+    img.mtrx = cv2.cvtColor(im, cv2.COLOR_BGR2LAB)
+    return img
+
+@Log
+def rgbToGrey(img):
+    im = np.array(img.mtrx).astype(np.uint8)
+    img.mtrx = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)
+    return img
+
+@Log
+def elekKeresese(img, minv, maxv):
+    im = np.array(img.mtrx).astype(np.uint8)
+    elek = cv2.Canny(im,minv,maxv)
+    img.mtrx = elek
+    return img
 
 @Log
 def kepMentese(img, name):

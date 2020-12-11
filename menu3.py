@@ -92,17 +92,17 @@ class ScreenThree():
         self.MinChoice = 1
         self.MaxChoice = 4
 
-    def Start(self,currentImg):
+    def Start(self,currentImg, hvs, lab, grey):
         while True:
             PrintMenu(self.options)
             option = ValidateInput(self.MinChoice, self.MaxChoice)
 
             if option == 1:
-                pass
+                return hvs(currentImg)
             elif option == 2:
-                pass
+                return lab(currentImg)
             elif option == 3:
-                pass
+                return grey(currentImg)
             else:
                 return currentImg
                 
@@ -113,6 +113,9 @@ class ScreenFour():
         self.MaxChoice = 4
 
     def Start(self, currentImg, rotateLeft, rotateRight, rotate180):
+        if not currentImg:
+            ImageNotLoaded()
+            return
         while True:
             PrintMenu(self.options)
             option = ValidateInput(self.MinChoice, self.MaxChoice)
@@ -130,27 +133,70 @@ class ScreenFour():
 
 class ScreenFive():
     def __init__(self,):
-        self.options = ["PIXEL FASZ", "Vissza főmenübe"]
+        self.options = ["Blur értékének megadása", "Vissza főmenübe"]
         self.MinChoice = 1
         self.MaxChoice = 2
 
-    def Start(self, currentImg):
+    def Start(self, currentImg, blur):
+        if not currentImg:
+            ImageNotLoaded()
+            return
         while True:
             PrintMenu(self.options)
             option = ValidateInput(self.MinChoice, self.MaxChoice)
             if option == 1:
-                pass
+                PrintMenu(["Adja meg, hogy pixelenként szeretne átlagolni: "],0)
+                meret = input()
+                try:
+                    meret = int(meret.split(',')[0])
+                except:
+                    InvalidInput()
+                    break
+                return blur(currentImg,meret)
             else:
                 return currentImg
 
 class ScreenSix():
+
+
     def __init__(self,):
-        self.options = []
+        self.options = ["Érzékenység megadása: ", "Vissza főmenübe"]
         self.MinChoice = 1
         self.MaxChoice = 2
 
-    def Start(self,):
-        pass
+    def Start(self,currentImg, edges):
+        if not currentImg:
+            InvalidInput()
+            return
+        while True:
+            PrintMenu(self.options)
+            option = ValidateInput(self.MinChoice, self.MaxChoice)
+            if option == 1:
+                PrintMenu(["Adja meg az értékeket (num,num) formában: "],0)
+                try:
+                    p = input()
+                    num1 = int(p.split(',')[0])
+                    num2 = int(p.split(',')[1])
+                except:
+                    InvalidInput()
+                    break
+                return edges(currentImg, num1,num2)
+            break
+
+class ScreenEight():
+    def __init__(self,):
+        self.options = ["Adja meg milyen néven szeretné menteni a képet: "]
+
+    def Start(self, currentImg, mentes):
+        if not currentImg:
+            ImageNotLoaded()
+            return
+        else:
+            PrintMenu(self.options,0)
+            nev = input()
+            mentes(currentImg,nev)
+
+
 
 def PrintMenu(options,firsIgnored=None):
     """
